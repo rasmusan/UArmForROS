@@ -109,10 +109,14 @@ def ivsKine(x, y, z):
 
 
 def processFeedback( feedback ):
-    
+    print 'processFeedback: x: ' + str(feedback.pose.position.x) + ', y: ' + str(feedback.pose.position.x) + ', z: ' + str(feedback.pose.position.x)
     current_x = -round(feedback.pose.position.x*1000)/10.0
     current_y = -round(feedback.pose.position.y*1000)/10.0
     current_z = round(feedback.pose.position.z*1000)/10.0
+    # RSA versions:
+#    current_x = round(feedback.pose.position.x*1000)
+#    current_y = round(feedback.pose.position.y*1000)
+#    current_z = round(feedback.pose.position.z*1000)
 
     print 'x: ' + str(current_x) +'cm y: ' + str(current_y) + 'cm z: '+str(current_z) +'cm'
     display(ivsKine(current_x,current_y,current_z))
@@ -234,9 +238,13 @@ if __name__=="__main__":
     menu_handler.insert( "First Entry", callback=processFeedback )
     menu_handler.insert( "Second Entry", callback=processFeedback )
 
-    ini_x = -rospy.get_param('current_x')/100
-    ini_y = -rospy.get_param('current_y')/100
-    ini_z = rospy.get_param('current_z')/100
+#    ini_x = -rospy.get_param('current_x')/100
+#    ini_y = -rospy.get_param('current_y')/100
+#	ini_z = rospy.get_param('current_z')/100
+	# RSA version:
+    ini_x = rospy.get_param('current_x')/1000
+    ini_y = rospy.get_param('current_y')/1000
+    ini_z = rospy.get_param('current_z')/1000
     time.sleep(1)
 
     position = Point( float(ini_x), float(ini_y), float(ini_z))

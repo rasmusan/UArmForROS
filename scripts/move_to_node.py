@@ -39,9 +39,10 @@ def execute():
 	if len(sys.argv)>3:
 		x = float(sys.argv[1])
 		y = float(sys.argv[2])
-		if y> 0:
-			y = -y
+#		if y> 0:
+#			y = -y
 		z = float(sys.argv[3])
+		print 'Values: [' + str(x) + ', ' + str(y) + ', ' + str(z) + ']'
 
 	if len(sys.argv) == 4:
 		pub_1.publish(x,y,z)

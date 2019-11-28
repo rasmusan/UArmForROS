@@ -150,7 +150,7 @@ def connectFcn():
 			uarm.connect()
 			connectionStatus = 1
 
-			print 'Connected'
+			print 'uarm_core: Connected'
 			return 21
 
 		elif len(sys.argv) == 3:
@@ -340,10 +340,10 @@ def pumpStrCallack(data):
 	print data_input
 
 	if data_input.lower() == 'low' or data_input.lower() == 'off':
-		uarm.pump_control(0)
+		uarm.set_pump(0)
 		print 'Pump: Off'
 	elif data_input.lower() == 'on' or data_input.lower() == 'high':
-		uarm.pump_control(1)
+		uarm.set_pump(1)
 		print 'Pump: On'
 	else:
 		pass
@@ -374,10 +374,10 @@ def attchCallback(attachStatus):
 	data_input = attachStatus.data
 
 	if data_input.lower() == 'attach' :
-		uarm.attach_all_servos()
+		uarm.set_servo_attach()
 		print 'uArm: Attach'
 	elif data_input.lower() == 'detach':
-		uarm.detach_all_servos()
+		uarm.set_servo_detach()
 		print 'uArm: Detach'
 	else:
 		pass
@@ -387,19 +387,20 @@ def attchCallback(attachStatus):
 def moveToCallback(coords):
 	x = coords.x
 	y = coords.y
-	if y>0:
-		y = -y
+#	if y>0:
+#		y = -y
 	z = coords.z
 	uarm.set_position(x, y, z, 2)
-	print 'Movement: Moved Once'
+	print 'moveToCallback: [' + str(x) + ', ' + str(y) + ', ' + str(z) + ']'
+#	print 'Movement: Moved Once'
 
 
 # moveto functions once received data from topic
 def moveToTimeCallback(coordsAndT):
 	x = coordsAndT.x
 	y = coordsAndT.y
-	if y>0:
-		y = -y
+#	if y>0:
+#		y = -y
 	z = coordsAndT.z
 	time = coordsAndT.time
 	if time == 0:
@@ -407,7 +408,8 @@ def moveToTimeCallback(coordsAndT):
 	else:
 		uarm.set_position(x, y, z, 2)
 
-	print 'Movement: Moved Once'
+	print 'moveToTimeCallback: [' + str(x) + ', ' + str(y) + ', ' + str(z) + ']'
+#	print 'Movement: Moved Once'
 	pass
 
 
@@ -416,15 +418,16 @@ def moveToTimeAndS4Callback(coordsAndTS4):
 
 	x = coordsAndTS4.x
 	y = coordsAndTS4.y
-	if y>0:
-		y = -y
+#	if y>0:
+#		y = -y
 	z = coordsAndTS4.z
 	time = coordsAndTS4.time
 	s4 = coordsAndTS4.servo_4
 	if s4 > 180: s4 = 180
 	if s4 <0 : s4 =0
 	uarm.set_position(x, y, z, s4, 0, time, 0, 0)
-	print 'Movement: Moved Once'
+	print 'moveToTimeAndS4Callback: [' + str(x) + ', ' + str(y) + ', ' + str(z) + ']'
+#	print 'Movement: Moved Once'
 	pass
 
 
@@ -500,7 +503,7 @@ def listener():
 def processFailedNum(failed_number):
 
 	if failed_number > 20 and failed_number < 26:
-		print 'ERROR: Input Connection Address Is Incorrect'
+		print 'ERROR: Input Connection Address Is Incorrect (failed_number = ' + str(failed_number) + ')'
 	if failed_number == 20:
 		print 'uArm: Please Connect uArm first '
 

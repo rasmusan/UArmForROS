@@ -36,28 +36,33 @@ def execute():
 	rospy.init_node('report_angles_node',anonymous = True)
 	rate = rospy.Rate(10)
 
+#	print 'len(sys.argv)=' + str(len(sys.argv))
+#	for i in range(0,int(len(sys.argv))):
+#		print 'arg ' + str(i) + ' = ' + str(sys.argv[i])
+
 	# report once		
-	if len(sys.argv) == 1:
-		pub.publish(1)
-		time.sleep(0.15)
-		print 'Four Servo Angles: %2.2f, %2.2f, %2.2f and %2.2f degrees.' %(rospy.get_param('servo_1'),rospy.get_param('servo_2'),rospy.get_param('servo_3'),rospy.get_param('servo_4'))
+#	if len(sys.argv) == 1:
+#		print 'ACTION: REPORT ONCE'
+	pub.publish(1)
+	time.sleep(0.15)
+	print 'Four Servo Angles: %2.2f, %2.2f, %2.2f and %2.2f degrees.' %(rospy.get_param('servo_1'),rospy.get_param('servo_2'),rospy.get_param('servo_3'),rospy.get_param('servo_4'))
 
-	# report multiple time
-	elif len(sys.argv) == 2:
-		for i in range(0,int(sys.argv[1])):
-			pub.publish(1)
-			time.sleep(0.15)
-			print 'Four Servo Angles: %2.2f, %2.2f, %2.2f and %2.2f degrees.' %(rospy.get_param('servo_1'),rospy.get_param('servo_2'),rospy.get_param('servo_3'),rospy.get_param('servo_4'))
+#	# report multiple time
+#	elif len(sys.argv) == 2:
+#		for i in range(0,int(sys.argv[1])):
+#			pub.publish(1)
+#			time.sleep(0.15)
+#			print 'Four Servo Angles: %2.2f, %2.2f, %2.2f and %2.2f degrees.' %(rospy.get_param('servo_1'),rospy.get_param('servo_2'),rospy.get_param('servo_3'),rospy.get_param('servo_4'))
 
-	elif len(sys.argv) == 3:
-		for i in range(0,int(sys.argv[1])):
-			pub.publish(1)
-			time.sleep(0.15)
-			print 'Four Servo Angles: %2.2f, %2.2f, %2.2f and %2.2f degrees.' %(rospy.get_param('servo_1'),rospy.get_param('servo_2'),rospy.get_param('servo_3'),rospy.get_param('servo_4'))
-			time.sleep(float(sys.argv[2])-0.15)
+#	elif len(sys.argv) == 3:
+#		for i in range(0,int(sys.argv[1])):
+#			pub.publish(1)
+#			time.sleep(0.15)
+#			print 'Four Servo Angles: %2.2f, %2.2f, %2.2f and %2.2f degrees.' %(rospy.get_param('servo_1'),rospy.get_param('servo_2'),rospy.get_param('servo_3'),rospy.get_param('servo_4'))
+#			time.sleep(float(sys.argv[2])-0.15)
 	
-	else:
-		raiseError()
+#	else:
+#		raiseError()
 
 	rate.sleep()
 
@@ -68,6 +73,6 @@ if __name__ == '__main__':
 		pass
 	except:
 		print '=========================================='
-		print 'ERROR: Exectuion error. Input numbers only'
+		print 'ERROR: Execution error. Input numbers only'
 		raiseError()
 		pass
